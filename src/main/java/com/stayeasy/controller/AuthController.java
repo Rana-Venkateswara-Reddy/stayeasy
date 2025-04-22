@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "https://legendary-pudding-5bd519.netlify.app/", allowCredentials = "true")
 @RequestMapping("/api/auth")
 public class AuthController {
 
