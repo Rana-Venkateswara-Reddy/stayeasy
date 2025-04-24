@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://darling-semolina-22e159.netlify.app/", allowCredentials = "true")
+@CrossOrigin(origins = "https://eclectic-pithivier-94ff85.netlify.app/", allowCredentials = "true")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -36,8 +36,10 @@ public class AuthController {
             String otp = otpService.generateOtp(email);
             emailService.sendOtpEmail(email, otp);
             return ResponseEntity.ok(Map.of("message", "OTP sent successfully"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(Map.of("message", "Failed to send OTP"));
+            return ResponseEntity.internalServerError().body(Map.of("message", "Failed to send OTP: " + e.getMessage()));
         }
     }
 
@@ -58,7 +60,7 @@ public class AuthController {
                     "user", registeredUser
             ));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(Map.of("message", "Registration failed"));
+            return ResponseEntity.internalServerError().body(Map.of("message", "Registration failed: " + e.getMessage()));
         }
     }
 
