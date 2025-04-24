@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/listings")
-@CrossOrigin(origins = {"https://dazzling-sprite-71127d.netlify.app/"},
+@CrossOrigin(origins = {"https://courageous-gingersnap-17b14a.netlify.app/"},
         allowedHeaders = "*",
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
         allowCredentials = "true")

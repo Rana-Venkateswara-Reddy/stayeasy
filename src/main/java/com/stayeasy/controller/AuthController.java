@@ -2,8 +2,10 @@ package com.stayeasy.controller;
 
 import com.stayeasy.model.User;
 import com.stayeasy.service.EmailService;
+import com.stayeasy.service.EmailValidationService;
 import com.stayeasy.service.OtpService;
 import com.stayeasy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +13,17 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://dazzling-sprite-71127d.netlify.app/", allowCredentials = "true")
+@CrossOrigin(origins = "https://courageous-gingersnap-17b14a.netlify.app/", allowCredentials = "true")
 @RequestMapping("/api/auth")
 public class AuthController {
 
     private final UserService userService;
     private final OtpService otpService;
     private final EmailService emailService;
+
+    @Autowired
+    private EmailValidationService emailValidationService;
+
 
     public AuthController(OtpService otpService, EmailService emailService, UserService userService) {
         this.otpService = otpService;
@@ -27,6 +33,10 @@ public class AuthController {
     @PostMapping("/send-otp")
     public ResponseEntity<?> sendOtp(@RequestParam String email) {
         try {
+            if (!emailValidationService.isEmailValid(email)) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Invalid email address"));
+            }
+
             if (userService.getUserByEmail(email).isPresent()) {
                 return ResponseEntity.badRequest().body(Map.of("message", "Email already registered"));
             }
@@ -41,6 +51,7 @@ public class AuthController {
             return ResponseEntity.internalServerError().body(Map.of("message", "Failed to send OTP"));
         }
     }
+
 
 
     @PostMapping("/register")

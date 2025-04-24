@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reviews")
-@CrossOrigin(origins = "https://dazzling-sprite-71127d.netlify.app/")
+@CrossOrigin(origins = "https://courageous-gingersnap-17b14a.netlify.app/")
 public class ReviewController {
     private final ReviewService reviewService;
 
