@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://courageous-gingersnap-17b14a.netlify.app/", allowCredentials = "true")
+@CrossOrigin(origins = "https://aquamarine-lamington-9d5a3c.netlify.app/", allowCredentials = "true")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -31,7 +31,9 @@ public class AuthController {
         this.userService = userService;
     }
     @PostMapping("/send-otp")
-    public ResponseEntity<?> sendOtp(@RequestParam String email) {
+    public ResponseEntity<?> sendOtp(@RequestBody Map<String, String> payload) {
+        String email = payload.get("email");
+
         try {
             if (!emailValidationService.isEmailValid(email)) {
                 return ResponseEntity.badRequest().body(Map.of("message", "Invalid email address"));
@@ -51,6 +53,7 @@ public class AuthController {
             return ResponseEntity.internalServerError().body(Map.of("message", "Failed to send OTP"));
         }
     }
+
 
 
 
