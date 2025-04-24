@@ -80,7 +80,7 @@ public class Listing {
         return rent;
     }
 
-    public int setRent(String rent) {
+    public void setRent(int rent) {
         this.rent = rent;
     }
 
