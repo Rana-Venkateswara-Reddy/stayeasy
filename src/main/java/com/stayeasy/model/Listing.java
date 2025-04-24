@@ -14,7 +14,7 @@ public class Listing {
     private String category;
     private Address address;
     private String roomType;
-    private String rent;
+    private int rent;
     private int deposit;
     private int maxOccupancy;
 
@@ -76,11 +76,11 @@ public class Listing {
         this.roomType = roomType;
     }
 
-    public String getRent() {
+    public int getRent() {
         return rent;
     }
 
-    public void setRent(String rent) {
+    public int setRent(String rent) {
         this.rent = rent;
     }
 
