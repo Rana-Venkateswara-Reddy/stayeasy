@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://legendary-pudding-5bd519.netlify.app/", allowCredentials = "true")
+@CrossOrigin(origins = "https://dazzling-sprite-71127d.netlify.app/", allowCredentials = "true")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -24,22 +24,24 @@ public class AuthController {
         this.emailService = emailService;
         this.userService = userService;
     }
-
     @PostMapping("/send-otp")
     public ResponseEntity<?> sendOtp(@RequestParam String email) {
         try {
-            // Check if email already exists
             if (userService.getUserByEmail(email).isPresent()) {
                 return ResponseEntity.badRequest().body(Map.of("message", "Email already registered"));
             }
 
             String otp = otpService.generateOtp(email);
             emailService.sendOtpEmail(email, otp);
+
             return ResponseEntity.ok(Map.of("message", "OTP sent successfully"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(Map.of("message", "Failed to send OTP"));
         }
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user, @RequestParam String otp) {
