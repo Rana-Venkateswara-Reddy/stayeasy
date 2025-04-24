@@ -3,6 +3,7 @@ package com.stayeasy.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
+import java.util.ArrayList;
 
 @Document(collection = "listings")
 public class Listing {
@@ -13,58 +14,117 @@ public class Listing {
     private String category;
     private Address address;
     private String roomType;
-    private int rent;
+    private String rent;
     private int deposit;
-    private String availability;
     private int maxOccupancy;
-    private List<String> amenities;
-    private List<String> images;
-    private List<String> reviewIds; // IDs of reviews for this listing
 
-    // Constructors
+    // Initialize these lists so they’re never null:
+    private List<String> amenities = new ArrayList<>();
+    private List<String> images    = new ArrayList<>();
+    private List<String> reviewIds = new ArrayList<>();
+
     public Listing() {}
 
-    // Getters and Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    // ... all your existing getters/setters unchanged ...
 
-    public String getOwnerId() { return ownerId; }
-    public void setOwnerId(String ownerId) { this.ownerId = ownerId; }
 
-    public String getPropertyName() { return propertyName; }
-    public void setPropertyName(String propertyName) { this.propertyName = propertyName; }
+    public String getId() {
+        return id;
+    }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public Address getAddress() { return address; }
-    public void setAddress(Address address) { this.address = address; }
+    public String getOwnerId() {
+        return ownerId;
+    }
 
-    public String getRoomType() { return roomType; }
-    public void setRoomType(String roomType) { this.roomType = roomType; }
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
 
-    public int getRent() { return rent; }
-    public void setRent(int rent) { this.rent = rent; }
+    public String getPropertyName() {
+        return propertyName;
+    }
 
-    public int getDeposit() { return deposit; }
-    public void setDeposit(int deposit) { this.deposit = deposit; }
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
 
-    public String getAvailability() { return availability; }
-    public void setAvailability(String availability) { this.availability = availability; }
+    public String getCategory() {
+        return category;
+    }
 
-    public int getMaxOccupancy() { return maxOccupancy; }
-    public void setMaxOccupancy(int maxOccupancy) { this.maxOccupancy = maxOccupancy; }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-    public List<String> getAmenities() { return amenities; }
-    public void setAmenities(List<String> amenities) { this.amenities = amenities; }
+    public Address getAddress() {
+        return address;
+    }
 
-    public List<String> getImages() { return images; }
-    public void setImages(List<String> images) { this.images = images; }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-    public List<String> getReviewIds() { return reviewIds; }
-    public void setReviewIds(List<String> reviewIds) { this.reviewIds = reviewIds; }
+    public String getRoomType() {
+        return roomType;
+    }
 
-    // Address Inner Class
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public String getRent() {
+        return rent;
+    }
+
+    public void setRent(String rent) {
+        this.rent = rent;
+    }
+
+    public int getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(int deposit) {
+        this.deposit = deposit;
+    }
+
+    public int getMaxOccupancy() {
+        return maxOccupancy;
+    }
+
+    public void setMaxOccupancy(int maxOccupancy) {
+        this.maxOccupancy = maxOccupancy;
+    }
+
+    public List<String> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<String> amenities) {
+        this.amenities = amenities;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<String> getReviewIds() {
+        return reviewIds;
+    }
+
+    public void setReviewIds(List<String> reviewIds) {
+        this.reviewIds = reviewIds;
+    }
+
+    // Address inner class remains the same...
     public static class Address {
         private String street;
         private String city;
@@ -75,23 +135,54 @@ public class Listing {
 
         public Address() {}
 
-        // Getters and Setters
-        public String getStreet() { return street; }
-        public void setStreet(String street) { this.street = street; }
+        // getters/setters...
 
-        public String getCity() { return city; }
-        public void setCity(String city) { this.city = city; }
+        public String getStreet() {
+            return street;
+        }
 
-        public String getState() { return state; }
-        public void setState(String state) { this.state = state; }
+        public void setStreet(String street) {
+            this.street = street;
+        }
 
-        public String getPostalCode() { return postalCode; }
-        public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+        public String getCity() {
+            return city;
+        }
 
-        public String getCountry() { return country; }
-        public void setCountry(String country) { this.country = country; }
+        public void setCity(String city) {
+            this.city = city;
+        }
 
-        public double[] getCoordinates() { return coordinates; }
-        public void setCoordinates(double[] coordinates) { this.coordinates = coordinates; }
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getPostalCode() {
+            return postalCode;
+        }
+
+        public void setPostalCode(String postalCode) {
+            this.postalCode = postalCode;
+        }
+
+        public double[] getCoordinates() {
+            return coordinates;
+        }
+
+        public void setCoordinates(double[] coordinates) {
+            this.coordinates = coordinates;
+        }
+
+        public String getCountry() {
+            return country;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
+        }
     }
 }

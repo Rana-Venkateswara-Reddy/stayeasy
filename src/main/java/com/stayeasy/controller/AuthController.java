@@ -2,10 +2,8 @@ package com.stayeasy.controller;
 
 import com.stayeasy.model.User;
 import com.stayeasy.service.EmailService;
-import com.stayeasy.service.EmailValidationService;
 import com.stayeasy.service.OtpService;
 import com.stayeasy.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://aquamarine-lamington-9d5a3c.netlify.app/", allowCredentials = "true")
+@CrossOrigin(origins = "https://darling-semolina-22e159.netlify.app/", allowCredentials = "true")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -21,41 +19,27 @@ public class AuthController {
     private final OtpService otpService;
     private final EmailService emailService;
 
-    @Autowired
-    private EmailValidationService emailValidationService;
-
-
     public AuthController(OtpService otpService, EmailService emailService, UserService userService) {
         this.otpService = otpService;
         this.emailService = emailService;
         this.userService = userService;
     }
+
     @PostMapping("/send-otp")
-    public ResponseEntity<?> sendOtp(@RequestBody Map<String, String> payload) {
-        String email = payload.get("email");
-
+    public ResponseEntity<?> sendOtp(@RequestParam String email) {
         try {
-            if (!emailValidationService.isEmailValid(email)) {
-                return ResponseEntity.badRequest().body(Map.of("message", "Invalid email address"));
-            }
-
+            // Check if email already exists
             if (userService.getUserByEmail(email).isPresent()) {
                 return ResponseEntity.badRequest().body(Map.of("message", "Email already registered"));
             }
 
             String otp = otpService.generateOtp(email);
             emailService.sendOtpEmail(email, otp);
-
             return ResponseEntity.ok(Map.of("message", "OTP sent successfully"));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(Map.of("message", "Failed to send OTP"));
         }
     }
-
-
-
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user, @RequestParam String otp) {

@@ -8,21 +8,28 @@ import java.util.Date;
 public class Review {
     @Id
     private String id;
-    private String userId; // ID of the user who wrote the review
+    private String userId;    // ID of the user who wrote the review (we’ll set this to their email)
     private String listingId; // ID of the listing being reviewed
     private String comment;
-    private int rating; // Rating out of 5
+    private int rating;       // Rating out of 5
     private Date createdAt;
+
+    // ← NEW fields:
+    private String name;      // Reviewer’s name
+    private String email;     // Reviewer’s email
 
     // Constructors
     public Review() {}
 
-    public Review(String userId, String listingId, String comment, int rating) {
+    // Extended constructor
+    public Review(String userId, String listingId, String comment, int rating, String name, String email) {
         this.userId = userId;
         this.listingId = listingId;
         this.comment = comment;
         this.rating = rating;
         this.createdAt = new Date();
+        this.name = name;
+        this.email = email;
     }
 
     // Getters and Setters
@@ -43,4 +50,11 @@ public class Review {
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+
+    // ← New getters/setters for name & email
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 }

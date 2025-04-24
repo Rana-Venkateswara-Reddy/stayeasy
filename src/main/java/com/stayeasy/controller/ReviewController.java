@@ -1,3 +1,4 @@
+// src/main/java/com/stayeasy/controller/ReviewController.java
 package com.stayeasy.controller;
 
 import com.stayeasy.model.Review;
@@ -8,16 +9,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reviews")
-@CrossOrigin(origins = "https://aquamarine-lamington-9d5a3c.netlify.app/")
+@CrossOrigin(origins = "https://darling-semolina-22e159.netlify.app/",
+        allowedHeaders = "*",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+        allowCredentials = "true")
 public class ReviewController {
     private final ReviewService reviewService;
-
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 
     @PostMapping
     public ResponseEntity<Review> addReview(@RequestBody Review review) {
+        // review.name and review.email will bind automatically
         return ResponseEntity.ok(reviewService.addReview(review));
     }
 
